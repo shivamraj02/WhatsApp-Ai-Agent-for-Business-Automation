@@ -1,0 +1,444 @@
+{
+  "name": "SUPPORT CHHATBOT",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "bharat-canada-ai",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "cc252f6b-7d71-433e-ab7c-a77f513a16c4",
+      "name": "WhatsApp Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        -464,
+        48
+      ],
+      "webhookId": "3b0c1b2b-434d-4bde-a7b4-f5e3c1ea1d6d"
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "userMessage",
+              "value": "={{$json.Body}}"
+            },
+            {
+              "name": "From",
+              "value": "={{$json.From}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "3782dcb0-a036-41d0-b032-f5948a698449",
+      "name": "Set Input",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        848,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "from": "+14155238886",
+        "to": "={{ $json.toWA }}",
+        "toWhatsapp": true,
+        "message": "={{$json.text}}\n",
+        "options": {}
+      },
+      "id": "aad26534-5227-4919-b71b-d224bd02893e",
+      "name": "Send WhatsApp Reply",
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [
+        832,
+        64
+      ],
+      "credentials": {
+        "twilioApi": {
+          "id": "aLb1WbEMuXxJVeQI",
+          "name": "Twilio account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4.1-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4.1-MINI"
+        },
+        "responses": {
+          "values": [
+            {
+              "content": "You are an official AI assistant of \"Bharat Canada Immigration\".\n\nCONVERSATION CONTEXT HANDLING:\n- Check if this is a continuing conversation or first message\n- If user has already been greeted, continue naturally WITHOUT repeating your introduction\n- Reference previous messages in the conversation\n- Be contextually aware\n\nRules:\n- Always introduce yourself ONLY on first contact as Bharat Canada Immigration AI assistant.\n- Be professional, polite, and trustworthy.\n- Reply in Hindi if user writes in Hindi, otherwise English.\n- Never promise jobs, PR, or guaranteed visas.\n- Encourage eligibility assessment and callback booking.\n\nServices:\n- Canada Express Entry\n- Study Visa\n- Work Permit\n- PR\n- Family Sponsorship\n\nIf user shows interest, collect step-by-step:\n1. Full Name\n2. Age\n3. Education\n4. Work Experience\n5. IELTS (if any)\n6. City & Country\n\nEnd replies with:\n\"Would you like a free eligibility assessment call from our expert?\"\n"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.1,
+      "position": [
+        656,
+        416
+      ],
+      "id": "1e8e862c-1f83-42c1-8078-dc71123e5d1a",
+      "name": "Message a model",
+      "credentials": {
+        "openAiApi": {
+          "id": "K8DTz5Lnh9Ybcwuj",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1IP0c5krzq46fL47-dMJaT7_5Y_S2oxDFT8VAw7GtLj0",
+          "mode": "list",
+          "cachedResultName": "N8N Sheet-1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1IP0c5krzq46fL47-dMJaT7_5Y_S2oxDFT8VAw7GtLj0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1107692649,
+          "mode": "list",
+          "cachedResultName": "agent",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1IP0c5krzq46fL47-dMJaT7_5Y_S2oxDFT8VAw7GtLj0/edit#gid=1107692649"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "WhatsApp",
+              "displayName": "WhatsApp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "VisaType",
+              "displayName": "VisaType",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "City",
+              "displayName": "City",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Message",
+              "displayName": "Message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "0969b26e-ba63-45b6-92a6-bf955bf24ef9",
+      "name": "Agent",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        512,
+        64
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "seZGg30EGeQfQN0k",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const toWA = $node[\"Set Input\"].json.body.From.replace('whatsapp:', '');\nconst text = $node[\"Agent\"].json.output[0].content[0].text;\n\nreturn [{\n  json: {\n    toWA,\n    text\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        448,
+        416
+      ],
+      "id": "2b97ef72-1076-4e08-a5c7-37bdf1c03a44",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        -48,
+        240
+      ],
+      "id": "530a0b4e-3493-42fc-a17c-4e7e642e4a8f",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "K8DTz5Lnh9Ybcwuj",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "You are an AI assistant for Bharat Canada Immigration.\n\nIMPORTANT RULES:\n1. Never repeat the same question twice.\n2. Use the conversation step to decide what to ask next.\n3. Ask ONLY ONE question at a time.\n4. Move forward logically.\n5. If user already answered, do NOT ask again.\n\nConversation Flow:\n- step=start → ask PR or Express Entry\n- step=program_selected → ask age\n- step=age → ask education\n- step=education → ask IELTS score\n- step=ielts → ask work experience\n- step=experience → give eligibility summary and offer expert call\n\nUser Message: {{$json.message}}\nCurrent Step: {{$json.step}}\n\nRespond ONLY with the next question or answer. Do NOT restart.\n\n",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "7bee876d-34ab-40c3-a1e5-11f727e1f18b",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{$json.sessionId }}\n\n",
+        "contextWindowLength": 6
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        128,
+        336
+      ],
+      "id": "25353dfd-715a-4ba5-af2e-ab577dd9c36e",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get webhook data\nconst webhook = $node[\"WhatsApp Webhook\"].json;\n\n// Get sender number (Twilio WhatsApp)\nconst rawFrom =\n  webhook?.From ||\n  webhook?.from ||\n  webhook?.body?.From ||\n  webhook?.body?.from;\n\nif (!rawFrom) {\n  throw new Error(\"Sender number not found in WhatsApp Webhook\");\n}\n\n// Remove whatsapp: prefix\nconst toWA = rawFrom.replace(\"whatsapp:\", \"\");\n\n// Get AI Agent response\nconst text = $node[\"Agent\"].json.output;\n\nif (!text) {\n  throw new Error(\"AI Agent response is empty\");\n}\n\n// Return to Twilio\nreturn [\n  {\n    json: {\n      toWA,\n      text\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        80
+      ],
+      "id": "09a2ecb4-b2bd-495e-a1bf-f1f4a20e748c",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "358cfd95-9645-4f53-b9cb-e74acc5d8473",
+              "name": "message",
+              "value": "={{$node[\"WhatsApp Webhook\"].json.body.Body}}\n",
+              "type": "string"
+            },
+            {
+              "id": "9b33445b-fe4a-412a-8055-e0d4bc7a6d47",
+              "name": "sessionId",
+              "value": "=\n{{ $node[\"WhatsApp Webhook\"].json.body.From.replace('whatsapp:', '') }}\n",
+              "type": "string"
+            },
+            {
+              "id": "bd14266f-d094-4dde-9667-45dd889706c2",
+              "name": "step",
+              "value": "={{ $json.step || 'start' }}\n",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -240,
+        32
+      ],
+      "id": "141afca2-5657-40b6-8746-8327986d0672",
+      "name": "Set  Input"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "adcf2ce9-513b-4d63-b270-eda0d244138f",
+              "name": "step",
+              "value": "={{\n  $json.step === 'start'\n    ? 'program_selected'\n    : $json.step === 'program_selected'\n      ? 'age'\n      : $json.step === 'age'\n        ? 'education'\n        : $json.step === 'education'\n          ? 'ielts'\n          : $json.step === 'ielts'\n            ? 'experience'\n            : 'done'\n}}\n",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        320,
+        32
+      ],
+      "id": "1c4203b3-5eaa-49fc-9176-ad131f7b0e4f",
+      "name": "Update Step"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "WhatsApp Webhook": {
+      "main": [
+        [
+          {
+            "node": "Set  Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agent": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Update Step",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "Send WhatsApp Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set  Input": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Step": {
+      "main": [
+        [
+          {
+            "node": "Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "7757066d-a6da-4105-8328-98792a0516f6",
+  "meta": {
+    "instanceId": "8aee469559b7fc153bab88f81bac78bca0c0de402050f0f39ddfca4ffd0d0346"
+  },
+  "id": "sfv6wi6DRqV8wAmlHx5cx",
+  "tags": []
+}
